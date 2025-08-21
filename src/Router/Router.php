@@ -2,19 +2,14 @@
 namespace App\Router;
 class Router
 {
-
     private array $routes = [
         'GET' => [],
         'PSOT' => [],
     ];
-
     public function __construct()
     {
         $this->initRoutes();
-
     }
-
-
     public function dispatch($uri, $method)
     {
         $route = $this->findRoute($uri, $method);
@@ -28,14 +23,12 @@ class Router
         } else {
             call_user_func($route->getAction());
         }
-
     }
     private function notFound()
     {
-        echo '404';
+        echo '<H1>PAGE NOT FOUND</H1>';
         exit;
     }
-
     private function findRoute($uri, $method): Route|false
     {
         if (!isset($this->routes[$method][$uri])) {
@@ -46,12 +39,11 @@ class Router
     private function initRoutes()
     {
         $routes = $this->getRoutes();
+        dump($routes);
         foreach ($routes as $route) {
             $this->routes[$route->getMethod()][$route->getUri()] = $route;
         }
     }
-
-
     private function getRoutes()
     {
         return require_once APP_PATH . '/config/routes.php';
