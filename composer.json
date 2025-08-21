@@ -2,7 +2,8 @@
   "name": "no-tpont1ff/kinopois-klite",
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "App\\": "src/",
+      "App\\Kernel\\": "kernel/"
     }
   },
   "authors": [

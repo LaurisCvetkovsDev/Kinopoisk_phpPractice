@@ -2,7 +2,7 @@ name: kinopoisk-lite
 recipe: lamp
 config:
   php: "8.3"
-  webroot: .
+  webroot: public
 services:
   phpmyadmin:
     type: phpmyadmin:5.2
