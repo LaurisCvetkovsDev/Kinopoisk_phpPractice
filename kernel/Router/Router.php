@@ -1,13 +1,16 @@
 <?php
 namespace App\Kernel\Router;
+
+use App\Kernel\View\View;
 class Router
 {
     private array $routes = [
         'GET' => [],
-        'PSOT' => [],
+        'POST' => [],
     ];
-    public function __construct()
-    {
+    public function __construct(
+        private View $view
+    ) {
         $this->initRoutes();
     }
     public function dispatch($uri, $method)
@@ -18,8 +21,12 @@ class Router
         }
         if (is_array($route->getAction())) {
             [$controller, $action] = $route->getAction();
+
             $controller = new $controller();
-            call_user_func([$controller, $action]);
+
+            $controller->setView($this->view);
+            call_user_func(callback: [$controller, $action]);
+
         } else {
             call_user_func($route->getAction());
         }
@@ -39,7 +46,6 @@ class Router
     private function initRoutes()
     {
         $routes = $this->getRoutes();
-        dump($routes);
         foreach ($routes as $route) {
             $this->routes[$route->getMethod()][$route->getUri()] = $route;
         }
