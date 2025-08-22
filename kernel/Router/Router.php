@@ -1,6 +1,8 @@
 <?php
 namespace App\Kernel\Router;
 
+use App\Kernel\Http\Redirect;
+use App\Kernel\Http\Request;
 use App\Kernel\View\View;
 class Router
 {
@@ -9,7 +11,10 @@ class Router
         'POST' => [],
     ];
     public function __construct(
-        private View $view
+
+        private View $view,
+        private Request $request,
+        private Redirect $redirect,
     ) {
         $this->initRoutes();
     }
@@ -25,8 +30,9 @@ class Router
             $controller = new $controller();
 
             $controller->setView($this->view);
+            $controller->setrequest($this->request);
+            $controller->setRedirect($this->redirect);
             call_user_func(callback: [$controller, $action]);
-
         } else {
             call_user_func($route->getAction());
         }

@@ -9,8 +9,12 @@ return [
         '/home',
         [HomeController::class, 'index']
     ),
-    Route::get('/', function () {
-        include_once APP_PATH . '/views/pages/home.php';
-    }),
+    Route::get(
+        '/',
+        [HomeController::class, 'index']
+    ),
     Route::get('/movies', [MoviesController::class, 'index']),
+    Route::get('/admin/movies/add', [MoviesController::class, 'add']),
+    Route::post('/admin/movies/add', [MoviesController::class, 'store'])
+
 ];
