@@ -3,6 +3,7 @@ namespace App\Kernel\Router;
 
 use App\Kernel\Http\Redirect;
 use App\Kernel\Http\Request;
+use App\Kernel\Session\Session;
 use App\Kernel\View\View;
 class Router
 {
@@ -15,6 +16,7 @@ class Router
         private View $view,
         private Request $request,
         private Redirect $redirect,
+        private Session $session,
     ) {
         $this->initRoutes();
     }
@@ -32,6 +34,7 @@ class Router
             $controller->setView($this->view);
             $controller->setrequest($this->request);
             $controller->setRedirect($this->redirect);
+            $controller->setSession($this->session);
             call_user_func(callback: [$controller, $action]);
         } else {
             call_user_func($route->getAction());
@@ -39,7 +42,7 @@ class Router
     }
     private function notFound()
     {
-        echo '<H1>PAGE NOT FOUND</H1>';
+        echo '<H1>no bitches</H1>';
         exit;
     }
     private function findRoute($uri, $method): Route|false
