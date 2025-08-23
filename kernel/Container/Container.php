@@ -50,7 +50,7 @@ class Container
         $this->session = new Session();
         $this->view = new View($this->session);
         $this->config = new Config();
-        $this->database = new Database;
+        $this->database = new Database($this->config);
         $this->router = new Router(
             $this->view,
             $this->request,

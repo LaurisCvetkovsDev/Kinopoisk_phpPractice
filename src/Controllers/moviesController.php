@@ -28,7 +28,11 @@ class MoviesController extends Controller
             $this->redirect('/admin/movies/add');
 
         } else {
-
+            $id = $this->db()->insert(
+                'movies',
+                ['name' => $this->request()->input('name')]
+            );
+            dump("Movies added successfully with id: $id");
         }
 
 
