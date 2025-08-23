@@ -6,17 +6,18 @@
 
 namespace App\Kernel\Controller;
 
-use App\Kernel\Http\Request;
-use App\Kernel\Session\Session;
+use App\Kernel\Http\RedirectInterface;
+use App\Kernel\Http\RequestInterface;
+use App\Kernel\Session\SessionInterface;
 use App\Kernel\View\View;
-use App\Kernel\Http\Redirect;
+use App\Kernel\View\ViewInterface;
 
 abstract class Controller
 {
-    private View $view;
-    private Request $request;
-    private Redirect $redirect;
-    private Session $session;
+    private ViewInterface $view;
+    private RequestInterface $request;
+    private RedirectInterface $redirect;
+    private SessionInterface $session;
 
     public function view($name)
     {

@@ -2,9 +2,9 @@
 
 namespace App\Kernel\Http;
 
-class Redirect
+class Redirect implements RedirectInterface
 {
-    public function to($url)
+    public function to($url): never
     {
         header("Location: $url");
         exit;
