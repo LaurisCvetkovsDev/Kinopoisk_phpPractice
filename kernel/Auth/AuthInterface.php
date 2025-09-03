@@ -8,6 +8,10 @@ interface AuthInterface
     public function logout();
     public function check();
     public function user();
+    public function username();
+    public function password();
+    public function table();
+    public function session_field();
 
 
 

@@ -56,4 +56,18 @@ class Database implements DatabaseInterface
 
 
     }
+    public function first($table, $conditions = [])
+    {
+
+        $where = '';
+        if (count($conditions) > 0) {
+            $where = 'WHERE ' . implode(' AND', array_map(fn($field) => "$field =:$field", array_keys($conditions)));
+        }
+        $sql = "SELECT * FROM $table $where LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($conditions);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+
+    }
 }

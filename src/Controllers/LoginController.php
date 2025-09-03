@@ -13,7 +13,9 @@ class LoginController extends Controller
     }
     public function login()
     {
-        dump($this->auth());
+        $email = $this->request()->input('email');
+        $password = $this->request()->input('password');
+        dump($this->auth()->attempt($email, $password));
     }
 
 

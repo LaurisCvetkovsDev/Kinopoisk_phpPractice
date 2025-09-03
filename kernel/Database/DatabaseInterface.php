@@ -6,6 +6,7 @@ interface DatabaseInterface
 {
 
     public function insert($table, $data);
+    public function first($table, $conditions = []);
 
 
 }
