@@ -1,6 +1,7 @@
 <?php
 namespace App\Kernel\Router;
 
+use App\Kernel\Auth\AuthInterface;
 use App\Kernel\Database\DatabaseInterface;
 use App\Kernel\Http\RedirectInterface;
 use App\Kernel\Http\RequestInterface;
@@ -19,6 +20,7 @@ class Router implements RouterInterface
         private RedirectInterface $redirect,
         private SessionInterface $session,
         private DatabaseInterface $database,
+        private AuthInterface $auth,
     ) {
         $this->initRoutes();
     }
@@ -38,6 +40,7 @@ class Router implements RouterInterface
             $controller->setRedirect($this->redirect);
             $controller->setSession($this->session);
             $controller->setDatabase($this->database);
+            $controller->setAuth($this->auth);
             call_user_func(callback: [$controller, $action]);
         } else {
             call_user_func($route->getAction());
