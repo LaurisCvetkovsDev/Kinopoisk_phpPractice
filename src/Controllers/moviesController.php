@@ -16,7 +16,7 @@ class MoviesController extends Controller
     }
     public function store()
     {
-
+        dump($this->request()->file('image'));
         $validation = $this->request()->validate([
             'name' => ['required', 'min:3', 'max:10']
         ]);

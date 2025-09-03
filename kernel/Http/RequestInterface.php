@@ -1,6 +1,8 @@
 <?php
 namespace App\Kernel\Http;
 
+use App\Kernel\Upload\UploadedFileInterface;
+
 interface RequestInterface
 {
     public static function createFromGlobals();
@@ -10,5 +12,6 @@ interface RequestInterface
     public function setValidator($validator);
     public function validate($rules);
     public function errors();
+    public function file(string $key, $deafault = null): ?UploadedFileInterface;
 
 }

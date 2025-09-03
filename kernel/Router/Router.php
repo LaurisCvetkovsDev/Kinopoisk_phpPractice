@@ -7,6 +7,7 @@ use App\Kernel\Http\RedirectInterface;
 use App\Kernel\Http\RequestInterface;
 use App\Kernel\Session\SessionInterface;
 use App\Kernel\View\ViewInterface;
+
 class Router implements RouterInterface
 {
     private array $routes = [
@@ -29,6 +30,12 @@ class Router implements RouterInterface
         $route = $this->findRoute($uri, $method);
         if (!$route) {
             $this->notFound();
+        }
+        if ($route->hasMiddlewares()) {
+            foreach ($route->getMidllewares() as $middleware) {
+                $middleware = new $middleware($this->request, $this->auth, $this->redirect);
+                $middleware->handle();
+            }
         }
         if (is_array($route->getAction())) {
             [$controller, $action] = $route->getAction();

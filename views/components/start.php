@@ -6,3 +6,5 @@
     <link rel="stylesheet" href="/assets/css/app.css">
     <title>Document</title>
 </head>
+
+<?php $view->component(name: 'header') ?>
