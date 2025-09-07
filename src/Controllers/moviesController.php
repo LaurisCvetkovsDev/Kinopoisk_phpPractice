@@ -17,6 +17,9 @@ class MoviesController extends Controller
     public function store()
     {
         $file = $this->request()->file('image');
+        $filePath = $file->move('movies');
+        dump($this->storage()->url($filePath));
+
         dump($file->move('movies', 'test.png'));
         $validation = $this->request()->validate([
             'name' => ['required', 'min:3', 'max:10']

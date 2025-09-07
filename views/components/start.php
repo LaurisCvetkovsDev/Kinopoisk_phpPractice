@@ -1,10 +1,12 @@
-<html lang="en">
+<?php
+/**
+ * @var \App\Kernel\View\ViewInterface $view
+ */
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <title>Document</title>
-</head>
+<!doctype html>
+<html lang="ru" data-bs-theme="dark">
+<?php $view->component('head'); ?>
+<body class="d-flex flex-column min-vh-100">
 
-<?php $view->component(name: 'header') ?>
+<?php $view->component('header'); ?>

@@ -23,7 +23,7 @@ class UploadedFile implements UploadedFileInterface
         $fileName = $fileName ?? $this->randomFileName();
         $filePath = "$storagePath/$fileName";
         if (move_uploaded_file($this->tmpName, $filePath)) {
-            return "storage/$path/$fileName";
+            return "$path/$fileName";
         } else {
             return false;
         }
@@ -31,7 +31,7 @@ class UploadedFile implements UploadedFileInterface
 
     private function randomFileName()
     {
-        return md5(uniqid(rand(), true)) . $this->getExtention();
+        return md5(uniqid(rand(), true)) . '.' . $this->getExtention();
     }
     public function getExtention()
     {
