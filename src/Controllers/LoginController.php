@@ -16,8 +16,9 @@ class LoginController extends Controller
         $email = $this->request()->input('email');
         $password = $this->request()->input('password');
         if ($this->auth()->attempt($email, $password)) {
-            $this->redirect('/home');
+            $this->redirect('/');
         }
+        $this->session()->set('error', 'Указана не верная информация');
         $this->redirect('/login');
 
 

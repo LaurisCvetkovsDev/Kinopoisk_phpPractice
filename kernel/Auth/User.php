@@ -8,6 +8,7 @@ class User
         private int $id,
         private string $email,
         private string $password,
+        private string $name,
     ) {
     }
     public function id()
@@ -21,6 +22,10 @@ class User
     public function password()
     {
         return $this->password;
+    }
+    public function name()
+    {
+        return $this->name;
     }
 
 }

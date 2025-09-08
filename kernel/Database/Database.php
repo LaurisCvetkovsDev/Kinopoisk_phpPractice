@@ -28,8 +28,10 @@ class Database implements DatabaseInterface
         $stmt = $this->pdo->prepare($sql);
         try {
             $stmt->execute($data);
-        } catch (PDOException) {
-            return false;
+        } catch (PDOException $e) {
+            throw new \RuntimeException(
+                "Insert failed: " . $e->getMessage() . " | SQL: " . $sql
+            );
         }
         return $this->pdo->lastInsertId();
 
@@ -61,7 +63,7 @@ class Database implements DatabaseInterface
 
         $where = '';
         if (count($conditions) > 0) {
-            $where = 'WHERE ' . implode(' AND', array_map(fn($field) => "$field =:$field", array_keys($conditions)));
+            $where = 'WHERE ' . implode(' AND ', array_map(fn($field) => "$field =:$field", array_keys($conditions)));
         }
         $sql = "SELECT * FROM $table $where LIMIT 1";
         $stmt = $this->pdo->prepare($sql);
@@ -69,5 +71,16 @@ class Database implements DatabaseInterface
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
 
+    }
+    public function get($table, $conditions = [])
+    {
+        $where = '';
+        if (count($conditions) > 0) {
+            $where = 'WHERE ' . implode(' AND ', array_map(fn($field) => "$field =:$field", array_keys($conditions)));
+        }
+        $sql = "SELECT * FROM $table $where";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($conditions);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

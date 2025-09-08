@@ -17,23 +17,23 @@ class View implements ViewInterface
         private AuthInterface $auth,
     ) {
     }
-    public function page($name)
+    public function page($name, $data = [])
     {
         $viewPath = APP_PATH . "/views/pages/$name.php";
-        extract(array: $this->defaultData());
+        extract(array_merge($this->defaultData(), $data));
         if (!file_exists($viewPath)) {
             throw new ViewNotFoundException("View $name not found!");
         }
         require_once $viewPath;
     }
-    public function component($name)
+    public function component($name, $data = [])
     {
         $componentPath = APP_PATH . "/views/components/$name.php";
         if (!file_exists($componentPath)) {
             throw new ComponentNotFoundException("Component $name not found!");
         }
-        extract(array: $this->defaultData());
-        include_once APP_PATH . "/views/components/$name.php";
+        extract(array_merge($this->defaultData(), $data));
+        include APP_PATH . "/views/components/$name.php"; // <-- вместо include_once
     }
     public function defaultData()
     {
@@ -42,5 +42,9 @@ class View implements ViewInterface
             'session' => $this->session,
             'auth' => $this->auth,
         ];
+    }
+    public function title()
+    {
+        return 'balls';
     }
 }

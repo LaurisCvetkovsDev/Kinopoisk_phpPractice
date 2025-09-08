@@ -80,7 +80,9 @@ class Auth implements AuthInterface
             return new User(
                 $user['ID'],
                 $user['email'],
-                $user['password']
+                $user['password'],
+                $user['name'],
+
             );
         }
         return null;
